@@ -59,4 +59,11 @@ public class IssueBookService {
     public List<IssueBook> getAllIssuedBooks() {
         return issueBookRepository.findAll();
     }
+    
+    public int getIssuedBooksCount() {
+    	Integer count=issueBookRepository.getIssuedBooksCount();
+    	int issueCount= (count != null)? count.intValue():0;
+    	System.out.printf("Issue Count is:%d",issueCount);
+    	return issueCount;
+    }
 }

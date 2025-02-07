@@ -1,5 +1,7 @@
 package com.lm.ravi.controller;
 
+import static org.hamcrest.CoreMatchers.is;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import com.lm.ravi.entity.Admin;
 import com.lm.ravi.repository.AdminRepository;
 import com.lm.ravi.service.AdminService;
 import com.lm.ravi.service.BookService;
+import com.lm.ravi.service.IssueBookService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -33,6 +36,9 @@ public class AdminController {
 	
 	@Autowired
 	private BookService bookService;
+	
+	@Autowired
+	private IssueBookService issueBookService;
 	
 	
 	//initialize admin(first-time-setup)
@@ -74,10 +80,17 @@ public class AdminController {
 			return "redirect:/admin/loginAdmin";
 		}
 		int totalBooks=bookService.getTotalBooksCount();
-		int totalCopiesAvailable=bookService.getTotalCopiesAvailable();
+		int issuedBooks= issueBookService.getIssuedBooksCount();
+	
+		int availableBooks=(totalBooks-issuedBooks);
+		
 		
 		model.addAttribute("totalBooks", totalBooks);
-		model.addAttribute("totalCopiesAvailable", totalCopiesAvailable);	
+		model.addAttribute("issuedBooks", issuedBooks);
+		model.addAttribute("availableBooks",availableBooks);
+		session.setAttribute("avalableBooks", availableBooks);
+		model.addAttribute("issuedBooks",issuedBooks);
+		System.out.println("--From AdminController We have Available Books:"+availableBooks);
 		return "dashboard";               
 	}
 	

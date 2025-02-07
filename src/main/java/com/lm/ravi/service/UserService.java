@@ -33,5 +33,18 @@ public class UserService {
 	public Optional<User> getUserByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
+	
+	
+	//update student and delete student
+	public User updateStudentEmail(Long id, String email) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("Student not found"));
+        user.setEmail(email);
+        return userRepository.save(user);
+    }
 
+    public void deleteStudent(Long id) {
+        userRepository.deleteById(id);
+    }
 }
+
+

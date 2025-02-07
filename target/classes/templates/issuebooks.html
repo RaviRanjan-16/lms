@@ -32,7 +32,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="/dashboard">Library Dashboard</a>
+        <a class="navbar-brand" href="/dashboard">Library Management</a>
     </div>
 </nav>
 
@@ -74,7 +74,7 @@
         </thead>
         <tbody>
             <tr th:each="issue : ${issued}">
-                <td th:text="${issue.book.id}"></td>
+                <td th:text="${issue.book.title}"></td>
                 <td th:text="${issue.user.email}"></td>
                 <td th:text="${issue.issueDate}"></td>
                 <td>

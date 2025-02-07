@@ -32,14 +32,17 @@ public class BookService {
     
     public int getTotalBooksCount() {
     	Integer totalBooks=bookRepository.getTotalBooksCount();
-    	return (totalBooks!= null)? totalBooks:0;
-    	
+    	int totalBook=(totalBooks!= null)? totalBooks.intValue():0;
+    	System.out.printf("Total Book:%d",totalBook);
+    	return totalBook;
     }
     
     public int getTotalCopiesAvailable() {
     	Integer availableCopies=bookRepository.getTotalCopiesAvailable();
     	
-    	return (availableCopies != null)? availableCopies : 0;
+        int available=(availableCopies != null)? availableCopies.intValue() : 0;
+        System.out.printf("--Available Copies:%d ---",available);
+        return available;
     }
     
     public void updateAvailableCopies(Long bookId, int change) {
