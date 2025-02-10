@@ -1,96 +1,134 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Students</title>
+    <title>Manage Students</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <style>
         body {
             background: #CDE8E5;
-            color: white;
+            color: black;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
+
         .header-bg {
             background-color: rgba(0, 0, 0, 0.8);
-            padding: 15px;
+            padding: 10px;
         }
-        .btn-custom {
-            background: #4D869C;
-            border: none;
-            color: white;
-            font-size: 16px;
-            padding: 5px;
-            width: 10%;
+
+        .table-container {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
             border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-        
-         .footer-bg {
+
+        .footer-bg {
             background-color: rgba(0, 0, 0, 0.8);
             text-align: center;
             padding: 10px;
             margin-top: auto;
         }
-</style>
+
+        .btn-custom {
+            background: #4D869C;
+            border: none;
+            color: white;
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-custom:hover {
+            background: #ff3b2f;
+        }
+    </style>
 </head>
 
-
 <body>
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg header-bg">
         <div class="container">
-            <a class="navbar-brand text-white" href="#">Library Management</a>
+            <a class="navbar-brand text-white" href="/dashboard">Library Management</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link text-white" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="/dashboard">Dashboard</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="/admin/logout">Logout</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    
-    <table style="color: black" >
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="student : ${students}">
-                <td th:text="${student.id}"></td>
-                <td th:text="${student.name}"></td>
-                <td th:text="${student.email}"></td>
-                <td>
-                <div class="d-flex gap-2">
-                    <form th:action="@{/students/update}" method="post">
-                        <input type="hidden" name="id" th:value="${student.id}" />
-                        <input type="text" name="email" th:value="${student.email}" />
-                        <button type="submit" class="btn btn-warning btn-sm">Update</button>
-                    </form>
-                    <form th:action="@{/students/delete}" method="post">
-                        <input type="hidden" name="id" th:value="${student.id}" />
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                    </form>
-                 </div>
-                    
-                </td>
-            </tr>
-        </tbody>
-    </table>
-     <footer class="footer-bg text-white">
+
+    <!-- Table Container -->
+    <div class="container table-container">
+        <h2 class="text-center">Manage Students</h2>
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="student : ${students}">
+                    <td th:text="${student.id}"></td>
+                    <td th:text="${student.name}"></td>
+                    <td>
+                        <form th:action="@{/students/update}" method="post" class="d-flex">
+                            <input type="hidden" name="id" th:value="${student.id}" />
+                            <input type="email" name="email" th:value="${student.email}" 
+                                   class="form-control me-2 student-email" readonly />
+                            <button type="button" class="btn btn-primary btn-sm edit-btn">Edit</button>
+                            <button type="submit" class="btn btn-warning btn-sm update-btn" style="display: none;">Update</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{/students/delete}" method="post">
+                            <input type="hidden" name="id" th:value="${student.id}" />
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-bg text-white">
         <p>&copy; 2025 Library Management System. All Rights Reserved.</p>
     </footer>
-    
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
+    <!-- JavaScript to Enable Editing -->
+    <script>
+        document.querySelectorAll(".edit-btn").forEach(button => {
+            button.addEventListener("click", function() {
+                let form = this.closest("form");
+                let emailInput = form.querySelector(".student-email");
+                let updateButton = form.querySelector(".update-btn");
+                
+                emailInput.removeAttribute("readonly"); // Enable editing
+                emailInput.focus(); // Focus on input
+                this.style.display = "none"; // Hide Edit button
+                updateButton.style.display = "inline-block"; // Show Update button
+            });
+        });
+    </script>
+
 </body>
 </html>

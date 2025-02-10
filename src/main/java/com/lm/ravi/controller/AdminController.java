@@ -25,7 +25,6 @@ import jakarta.servlet.http.HttpSession;
 @Controller //handles web requests 
 @RequestMapping("/admin") //This means all URLs in this class will start with /admin
 @CrossOrigin(origins = "*") //allow frontend application to access this backend API
-
 public class AdminController {
 	
 	@Autowired //injects spring-managed objects automatically
@@ -42,15 +41,15 @@ public class AdminController {
 	
 	
 	//initialize admin(first-time-setup)
-	@GetMapping("/initialize")          
-	public String initializeAdmin() {
-		adminService.initializeAdmin();
-		return "login";
-	}
+//	@GetMapping("/initialize")          
+//	public String initializeAdmin() {
+//		adminService.initializeAdmin();
+//		return "login";
+//	}
 	
 	//show login page
 	@GetMapping("/loginAdmin")         
-	public String loginPage() {
+	public String loginPage(Model model) {
 		return "login";               
 	}
 	

@@ -7,9 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.lm.ravi.entity.Admin;
 import com.lm.ravi.repository.AdminRepository;
+
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class AdminService {
@@ -37,5 +41,6 @@ public class AdminService {
 	public Optional<Admin> getAdminByEmail(String email){
 		return adminRepository.findByEmail(email);
 	}
+	
 
 }

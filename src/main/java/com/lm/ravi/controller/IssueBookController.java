@@ -34,6 +34,7 @@ public class IssueBookController {
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("books", bookService.getAvailableBooks());
         List<IssueBook> issued =  issueBookService.getAllIssuedBooks();
+        
         model.addAttribute("issued",issued);
         System.out.println("********"+issued);
        
