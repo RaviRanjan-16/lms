@@ -2,6 +2,7 @@ package com.lm.ravi.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,14 +48,34 @@ public class IssueBookService {
     }
     
     public void returnBook(Long issueId) {
-    	IssueBook issue = issueBookRepository.findById(issueId).orElseThrow(() -> new RuntimeException("Issued Book not found"));
+    	Optional<IssueBook> issuedBookOpt=issueBookRepository.findById(issueId);
+    	if (issuedBookOpt.isPresent()) {
+    		IssueBook issuedBook = issuedBookOpt.get();
+    		Book book = issuedBook.getBook();
+    		
+    		//increase available copies since book is returned
+    		book.setAvailableCopies(book.getAvailableCopies() + 1);
+        	bookRepository.save(book);
+        	
+        	//Remove issued record
+        	issueBookRepository.deleteById(issueId);
+        	System.out.println("Book returned successfully!");
+    	}else {
+    		throw new RuntimeException("Issued book record not found!");
+    	}
     	
-    	issueBookRepository.delete(issue);
+//    	IssueBook issue = issueBookRepository.findById(issueId).orElseThrow(() -> new RuntimeException("Issued Book not found"));
+//    	
+//    	issueBookRepository.delete(issue);
+//    	
+//    	Book book = issue.getBook();
     	
-    	Book book = issue.getBook();
-    	book.setAvailableCopies(book.getAvailableCopies() + 1);
-    	bookRepository.save(book);
     }
+    
+    //count issued books for a user 
+//    public int countIssuedBookByUser(Long userId) {
+//    	return issueBookRepository.countIssuedBooksByUser(userId);
+//    }
 
     public List<IssueBook> getAllIssuedBooks() {
         return issueBookRepository.findAll();

@@ -88,6 +88,7 @@ body {
 					<th>User</th>
 					<th>Issued Date</th>
 					<th>Return Status</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -98,6 +99,12 @@ body {
 					<td><span th:if="${issue.issuedStatus}" class="text-success">Returned</span>
 						<span th:unless="${issue.issuedStatus}" class="text-danger">Not
 							Returned</span></td>
+					<td>
+					<form th:action="@{'/issuebooks/return/' + ${issue.id}}" method="post">
+    <button class="btn btn-warning" type="submit">Return</button>
+</form>
+					
+					</td>
 				</tr>
 			</tbody>
 		</table>
