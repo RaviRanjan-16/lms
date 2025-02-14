@@ -21,7 +21,7 @@ public class BookController {
     	
         model.addAttribute("book", new Book());
         model.addAttribute("books", bookService.getAllBooks()); // Load all books
-        return "addbooks"; // Thymeleaf page
+        return "addbooks"; // Thyme-leaf page
     }
 
     // Save book when form is submitted

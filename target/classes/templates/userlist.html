@@ -50,7 +50,7 @@
             background-color: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(10px);
             padding: 15px;
-            border-radius: 10px;
+            
         }
 
         .footer-bg {
@@ -67,17 +67,20 @@
     <!-- Header -->
     <nav class="navbar navbar-expand-lg header-bg">
         <div class="container">
-            <a class="navbar-brand text-white" href="#">Library Management</a>
+             <header class="header d-flex " >
+				<img th:src="@{/logo.png}" alt="Logo" class="rounded-circle" width="40" height="40">
+				<h2>Library Management System</h2>
+			</header>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link text-white" href="index.html">Home</a></li>
+                    
                     <li class="nav-item"><a class="nav-link text-white" href="/admin/dashboard">Dashboard</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="/admin/users/register">Add User</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="categories.html">Categories</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="logout">Logout</a></li>
+                    
+                    
                 </ul>
             </div>
         </div>

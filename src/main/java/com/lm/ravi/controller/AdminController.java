@@ -1,7 +1,5 @@
 package com.lm.ravi.controller;
 
-import static org.hamcrest.CoreMatchers.is;
-
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +27,6 @@ public class AdminController {
 	
 	@Autowired //injects spring-managed objects automatically
 	private AdminService adminService; //calls business logic function
-	
-	@Autowired
-	private AdminRepository adminRepository; //Accesses the database(fetches admin details)
 	
 	@Autowired
 	private BookService bookService;
