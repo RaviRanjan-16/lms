@@ -36,11 +36,11 @@ public class AdminController {
 	
 	
 	//initialize admin(first-time-setup)
-//	@GetMapping("/initialize")          
-//	public String initializeAdmin() {
-//		adminService.initializeAdmin();
-//		return "login";
-//	}
+	@GetMapping("/initialize")          
+	public String initializeAdmin() {
+		adminService.initializeAdmin();
+		return "login";
+	}
 	
 	//show login page
 	@GetMapping("/loginAdmin")         
